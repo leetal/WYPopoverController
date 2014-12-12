@@ -2191,6 +2191,8 @@ static WYPopoverTheme *defaultTheme_ = nil;
             overlayView.alpha = 0;
             backgroundView.alpha = 0;
         }
+
+        [viewController viewWillAppear:YES];
         
         CGAffineTransform endTransform = backgroundView.transform;
         
@@ -2212,13 +2214,18 @@ static WYPopoverTheme *defaultTheme_ = nil;
             adjustTintDimmed();
         } completion:^(BOOL finished) {
             completionBlock(YES);
+            [viewController viewDidAppear:YES];
         }];
     }
     else
     {
         adjustTintDimmed();
+        [viewController viewWillAppear:NO];
         completionBlock(NO);
+        [viewController viewDidAppear:NO];
     }
+
+
     
     if (isListeningNotifications == NO)
     {
